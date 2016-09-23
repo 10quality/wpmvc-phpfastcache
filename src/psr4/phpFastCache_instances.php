@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPFastCache;
+namespace WPMVC\PHPFastCache;
 
 /*
  * khoaofgod@gmail.com
