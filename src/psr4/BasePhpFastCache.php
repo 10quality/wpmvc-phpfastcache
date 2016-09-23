@@ -2,6 +2,19 @@
 
 namespace PHPFastCache;
 
+use TenQuality\WP\File;
+
+/**
+ * khoaofgod@gmail.com
+ * Website: http://www.phpfastcache.com
+ * Example at our website, any bugs, problems, please visit http://faster.phpfastcache.com
+ * Modification for WPMVC
+ *
+ * @link http://www.phpfastcache.com
+ * @author khoaofgod@gmail.com
+ * @author Alejandro Mostajo <info@10quality.com>
+ * @version 4.0.0
+ */
 abstract class BasePhpFastCache {
 
     var $tmp = array();
@@ -254,51 +267,28 @@ abstract class BasePhpFastCache {
 		return call_user_func_array( array( $this->instant, $name ), $args );
     }
 
-
     /*
      * Base Functions
      */
-
-
-
     protected function backup() {
         return phpFastCache(phpFastCache::$config['fallback']);
     }
 
-
     protected function required_extension($name) {
-        require_once(dirname(__FILE__)."/../_extensions/".$name);
+        require_once(dirname(__FILE__).'/../_extensions/'.$name);
     }
 
-
-    protected function readfile($file) {
-        if(function_exists("file_get_contents")) {
-            return @file_get_contents($file);
-        } else {
-            $string = "";
-
-            $file_handle = @fopen($file, "r");
-            if(!$file_handle) {
-                throw new Exception("Can't Read File",96);
-
-            }
-            while (!feof($file_handle)) {
-                $line = fgets($file_handle);
-                $string .= $line;
-            }
-            fclose($file_handle);
-
-            return $string;
-        }
+    /**
+     * @since 3.0.161 Fork.
+     * @since 4.0.0   Replace file handling.
+     */
+    protected function read_file($file) {
+        return File::auth()->read($file);
     }
-
-
 
     /*
      * return PATH for Files & PDO only
      */
-
-
     public function getPath($create_path = false) {
         return phpFastCache::getPath($create_path,$this->config);
     }
@@ -326,8 +316,8 @@ abstract class BasePhpFastCache {
      * Auto Create .htaccess to protect cache folder
      */
 
-    protected function htaccessGen($path = "") {
-        if($this->option("htaccess") == true) {
+    protected function htaccessGen($path = '') {
+        if($this->option('htaccess') == true) {
 
             if(!@file_exists($path."/.htaccess")) {
                 //   echo "write me";
@@ -335,9 +325,9 @@ abstract class BasePhpFastCache {
 deny from all \r\n
 allow from 127.0.0.1";
 
-                $f = @fopen($path."/.htaccess","w+");
+                $f = @fopen($path.'/.htaccess', 'w+');
                 if(!$f) {
-                    throw new Exception("Can't create .htaccess",97);
+                    throw new Exception('Can\'t create .htaccess',97);
                 }
                 fwrite($f,$html);
                 fclose($f);
@@ -364,7 +354,7 @@ allow from 127.0.0.1";
     public function systemInfo() {
         $backup_option = $this->option;
         if(count($this->option("system")) == 0 ) {
-            $this->option['system']['driver'] = "files";
+            $this->option['system']['driver'] = 'files';
             $this->option['system']['drivers'] = array();
             $dir = @opendir(dirname(__FILE__)."/drivers/");
             if(!$dir) {
@@ -372,10 +362,10 @@ allow from 127.0.0.1";
             }
 
             while($file = @readdir($dir)) {
-                if($file!="." && $file!=".." && strpos($file,".php") !== false) {
-                    require_once(dirname(__FILE__)."/drivers/".$file);
-                    $namex = str_replace(".php","",$file);
-                    $class = "phpfastcache_".$namex;
+                if($file!="." && $file!=".." && strpos($file,'.php') !== false) {
+                    require_once(dirname(__FILE__).'/drivers/'.$file);
+                    $namex = str_replace('.php','',$file);
+                    $class = 'phpfastcache_'.$namex;
                     $this->option['skipError'] = true;
                     $driver = new $class($this->option);
                     $driver->option = $this->option;

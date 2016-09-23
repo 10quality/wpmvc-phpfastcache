@@ -2,15 +2,21 @@
 
 namespace PHPFastCache;
 
-/*
+use TenQuality\WP\File;
+
+/**
  * khoaofgod@gmail.com
  * Website: http://www.phpfastcache.com
  * Example at our website, any bugs, problems, please visit http://faster.phpfastcache.com
+ * Modification for WPMVC
+ *
+ * @link http://www.phpfastcache.com
+ * @author khoaofgod@gmail.com
+ * @author Alejandro Mostajo <info@10quality.com>
+ * @version 4.0.0
  */
-
-
-// main class
-class phpFastCache {
+class phpFastCache
+{
     public static $disabled = false;
 	public static $config = array(
         'storage'       =>  '', // blank for auto
@@ -194,6 +200,10 @@ class phpFastCache {
         return false;
     }
 
+    /**
+     * @since 3.0.161 Fork.
+     * @since 4.0.0   Replace file handling.
+     */
     protected static function htaccessGen($path, $create = true) {
         if($create == true) {
             if(!is_writeable($path)) {
@@ -204,26 +214,12 @@ class phpFastCache {
 					throw new Exception('PLEASE CHMOD '.$path.' - 0777 OR ANY WRITABLE PERMISSION!',92);
                 }
             }
-            // Request credentials
-            $creds = request_filesystem_credentials( 
-                wp_nonce_url( admin_url( 'options.php' ) ),
-                '',         // type
-                false,      // error
-                $path,      // context
-                null,       // extra_fields
-            );
-            if(!@file_exists($path.'/.htaccess')) {
-                //   echo 'write me';
+            $file = File::auth();
+            if(!$file->exists($path.'/.htaccess')) {
                 $html = 'order deny, allow \r\n
 deny from all \r\n
 allow from 127.0.0.1';
-
-                $f = @fopen($path.'/.htaccess','w+');
-                if(!$f) {
-					throw new Exception('PLEASE CHMOD '.$path.' - 0777 OR ANY WRITABLE PERMISSION!',92);
-                }
-                fwrite($f,$html);
-                fclose($f);
+                $file->write($path.'/.htaccess', $html);
             }
         }
     }

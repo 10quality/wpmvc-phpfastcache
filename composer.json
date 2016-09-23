@@ -14,7 +14,8 @@
             }
         ],
     "require": {
-        "php": ">=5.1.0"
+        "php": ">=5.1.0",
+        "10quality/wp-file": "^0.9.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.1",
@@ -27,7 +28,7 @@
             "src/lib/functions.php"
         ],
         "psr-4": {
-            "PHPFastCache\\": "src/psr4"
+            "WPMVC\\PHPFastCache\\": "src/psr4"
         }
     }
 }

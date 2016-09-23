@@ -11,6 +11,7 @@
 
 namespace Predis\Connection;
 
+use TenQuality\WP\File;
 use Predis\Command\CommandInterface;
 use Predis\Response\Error as ErrorResponse;
 use Predis\Response\Status as StatusResponse;
@@ -168,17 +169,11 @@ class StreamConnection extends AbstractConnection
         $socket = $this->getResource();
 
         while (($length = strlen($buffer)) > 0) {
-            $written = @fwrite($socket, $buffer);
+            File::auth()->write($socket, $buffer);
 
-            if ($length === $written) {
-                return;
-            }
-
-            if ($written === false || $written === 0) {
+            if ($written === false) {
                 $this->onConnectionError('Error while writing bytes to the server.');
             }
-
-            $buffer = substr($buffer, $written);
         }
     }
 

@@ -1,7 +1,7 @@
 <?php
 
-use PHPFastCache\BasePhpFastCache;
-use PHPFastCache\phpfastcache_driver;
+use WPMVC\PHPFastCache\BasePhpFastCache;
+use WPMVC\PHPFastCache\phpfastcache_driver;
 /*
  * khoaofgod@gmail.com
  * Website: http://www.phpfastcache.com

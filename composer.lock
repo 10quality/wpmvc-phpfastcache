@@ -4,9 +4,58 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b302a755eb9ca227b81384dcd0910e5f",
-    "content-hash": "fa114be0fbfcc080e34ab65b33610741",
-    "packages": [],
+    "hash": "254f860269a685c9ad6abfd6ea23cfd8",
+    "content-hash": "2881aacd24fae767e5811f34118f9613",
+    "packages": [
+        {
+            "name": "10quality/wp-file",
+            "version": "v0.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/10quality/wp-file.git",
+                "reference": "21322742e71a84ad6d405e9400cf13899c6bac72"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/10quality/wp-file/zipball/21322742e71a84ad6d405e9400cf13899c6bac72",
+                "reference": "21322742e71a84ad6d405e9400cf13899c6bac72",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.4.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TenQuality\\WP\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alejandro Mostajo",
+                    "email": "amostajo@gmail.com"
+                },
+                {
+                    "name": "10 Quality",
+                    "email": "info@10quality.com"
+                }
+            ],
+            "description": "Small class library that facilitates file handling in Wordpress.",
+            "keywords": [
+                "file",
+                "filesystem",
+                "wordpress"
+            ],
+            "time": "2016-09-21 22:46:51"
+        }
+    ],
     "packages-dev": [
         {
             "name": "doctrine/instantiator",
@@ -113,12 +162,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/katzgrau/KLogger.git",
-                "reference": "63458c0a547ed5ef80deaea4fe37ef342c583db8"
+                "reference": "87735262be7c3bd210740b5cd4831dee3d827c46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/katzgrau/KLogger/zipball/63458c0a547ed5ef80deaea4fe37ef342c583db8",
-                "reference": "63458c0a547ed5ef80deaea4fe37ef342c583db8",
+                "url": "https://api.github.com/repos/katzgrau/KLogger/zipball/87735262be7c3bd210740b5cd4831dee3d827c46",
+                "reference": "87735262be7c3bd210740b5cd4831dee3d827c46",
                 "shasum": ""
             },
             "require": {
@@ -155,7 +204,7 @@
             "keywords": [
                 "logging"
             ],
-            "time": "2015-10-06 21:06:55"
+            "time": "2015-11-04 22:43:22"
         },
         {
             "name": "michelf/php-markdown",

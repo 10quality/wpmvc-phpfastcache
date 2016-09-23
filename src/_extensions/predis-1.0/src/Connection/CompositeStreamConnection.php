@@ -11,6 +11,7 @@
 
 namespace Predis\Connection;
 
+use TenQuality\WP\File;
 use InvalidArgumentException;
 use Predis\Command\CommandInterface;
 use Predis\Protocol\ProtocolProcessorInterface;
@@ -67,7 +68,7 @@ class CompositeStreamConnection extends StreamConnection implements CompositeCon
         $socket = $this->getResource();
 
         do {
-            $chunk = fread($socket, $length);
+            $chunk = File::auth()->read($socket);
 
             if ($chunk === false || $chunk === '') {
                 $this->onConnectionError('Error while reading bytes from the server.');

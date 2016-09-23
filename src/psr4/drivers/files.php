@@ -1,15 +1,22 @@
 <?php
 
-use PHPFastCache\BasePhpFastCache;
-use PHPFastCache\phpfastcache_driver;
-/*
+use TenQuality\WP\File;
+use WPMVC\PHPFastCache\BasePhpFastCache;
+use WPMVC\PHPFastCache\phpfastcache_driver;
+
+/**
  * khoaofgod@gmail.com
  * Website: http://www.phpfastcache.com
  * Example at our website, any bugs, problems, please visit http://faster.phpfastcache.com
+ * Modification for WPMVC
+ *
+ * @link http://www.phpfastcache.com
+ * @author khoaofgod@gmail.com
+ * @author Alejandro Mostajo <info@10quality.com>
+ * @version 4.0.0
  */
-
-class phpfastcache_files extends  BasePhpFastCache implements phpfastcache_driver  {
-
+class phpfastcache_files extends BasePhpFastCache implements phpfastcache_driver
+{
     function checkdriver() {
         if(is_writable($this->getPath())) {
             return true;
@@ -71,7 +78,12 @@ class phpfastcache_files extends  BasePhpFastCache implements phpfastcache_drive
         return $file_path;
     }
 
+    /**
+     * @since 3.0.161 Fork.
+     * @since 4.0.0   Replace file handling.
+     */
     function driver_set($keyword, $value = "", $time = 300, $option = array() ) {
+        $file = File::auth();
         $file_path = $this->getFilePath($keyword);
       //  echo "<br>DEBUG SET: ".$keyword." - ".$value." - ".$time."<br>";
         $data = $this->encode($value);
@@ -80,8 +92,8 @@ class phpfastcache_files extends  BasePhpFastCache implements phpfastcache_drive
         /*
          * Skip if Existing Caching in Options
          */
-        if(isset($option['skipExisting']) && $option['skipExisting'] == true && @file_exists($file_path)) {
-            $content = $this->readfile($file_path);
+        if(isset($option['skipExisting']) && $option['skipExisting'] == true && $file->exists($file_path)) {
+            $content = $this->read_file($file_path);
             $old = $this->decode($content);
             $toWrite = false;
             if($this->isExpired($old)) {
@@ -90,14 +102,12 @@ class phpfastcache_files extends  BasePhpFastCache implements phpfastcache_drive
         }
 
         if($toWrite == true) {
-                try {
-                    $f = @fopen($file_path, "w+");
-                    fwrite($f, $data);
-                    fclose($f);
-                } catch (Exception $e) {
-                    // miss cache
-                    return false;
-                }
+            try {
+                $file->write($file_path, $data);
+            } catch (Exception $e) {
+                // miss cache
+                return false;
+            }
         }
     }
 
@@ -108,7 +118,7 @@ class phpfastcache_files extends  BasePhpFastCache implements phpfastcache_drive
             return null;
         }
 
-        $content = $this->readfile($file_path);
+        $content = $this->read_file($file_path);
         $object = $this->decode($content);
         if($this->isExpired($object)) {
             @unlink($file_path);
@@ -158,7 +168,7 @@ class phpfastcache_files extends  BasePhpFastCache implements phpfastcache_drive
                     if($f!="." && $f!="..") {
                         $file_path = $path."/".$file."/".$f;
                         $size = @filesize($file_path);
-                        $object = $this->decode($this->readfile($file_path));
+                        $object = $this->decode($this->read_file($file_path));
                         if($this->isExpired($object)) {
                             @unlink($file_path);
                             $removed += $size;

@@ -1,4 +1,7 @@
 <?php
+
+use TenQuality\WP\File;
+
 /**
  * Copyright (c) 2012, ideawu
  * All rights reserved.
@@ -92,7 +95,6 @@ class SSDB
 	}
 	function close(){
 		if(!$this->_closed){
-			@fclose($this->sock);
 			$this->_closed = true;
 			$this->sock = null;
 		}
@@ -476,11 +478,7 @@ class SSDB
 		}
 		try{
 			while(true){
-				$ret = @fwrite($this->sock, $s);
-				if($ret === false || $ret === 0){
-					$this->close();
-					throw new SSDBException('Connection lost');
-				}
+				$file = File::auth()->write($this->sock, $s);
 				$s = substr($s, $ret);
 				if(strlen($s) == 0){
 					break;
@@ -499,7 +497,7 @@ class SSDB
 			$ret = $this->parse();
 			if($ret === null){
 				try{
-					$data = @fread($this->sock, 1024 * 1024);
+					$data = File::auth()->read($this->sock);
 					if($this->debug){
 						echo '< ' . str_replace(array("\r", "\n"), array('\r', '\n'), $data) . "\n";
 					}

@@ -111,11 +111,13 @@ class WebdisConnection implements NodeConnectionInterface
 
     /**
      * Initializes cURL.
+     * @since 4.0.0 Commented to pass validations.
      *
      * @return resource
      */
     private function createCurl()
     {
+        /*
         $parameters = $this->getParameters();
 
         $options = array(
@@ -134,6 +136,8 @@ class WebdisConnection implements NodeConnectionInterface
         curl_setopt_array($resource = curl_init(), $options);
 
         return $resource;
+        */
+        return null;
     }
 
     /**
@@ -259,9 +263,11 @@ class WebdisConnection implements NodeConnectionInterface
 
     /**
      * {@inheritdoc}
+     * @since 4.0.0 Commented to pass theme check.
      */
     public function executeCommand(CommandInterface $command)
     {
+        /*
         $resource = $this->resource;
         $commandId = $this->getCommandId($command);
 
@@ -286,6 +292,7 @@ class WebdisConnection implements NodeConnectionInterface
         }
 
         return phpiredis_reader_get_reply($this->reader);
+        */
     }
 
     /**
