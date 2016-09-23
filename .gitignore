@@ -235,3 +235,5 @@ nbproject/
 /cache
 /vendor
 /logs
+/tests/cache
+composer.lock

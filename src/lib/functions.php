@@ -1,7 +1,7 @@
 <?php
 
-use PHPFastCache\phpFastCache;
-use PHPFastCache\phpFastCache_instances;
+use WPMVC\PHPFastCache\phpFastCache;
+use WPMVC\PHPFastCache\phpFastCache_instances;
 
 /**
  * Global functions.

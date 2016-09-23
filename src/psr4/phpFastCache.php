@@ -2,6 +2,7 @@
 
 namespace WPMVC\PHPFastCache;
 
+use Exception;
 use TenQuality\WP\File;
 
 /**

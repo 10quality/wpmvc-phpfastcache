@@ -1,6 +1,6 @@
 <?php
 
-use PHPFastCache\phpFastCache;
+use WPMVC\PHPFastCache\phpFastCache;
 use PHPUnit_Framework_TestCase;
 
 class CacheTest extends PHPUnit_Framework_TestCase
