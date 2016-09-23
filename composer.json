@@ -1,18 +1,29 @@
 {
-    "name": "amostajo/phpfastcache",
+    "name": "10quality/wpmvc-phpfastcache",
     "type" : "library",
-    "description": "Fork from original phpfastcache to autoload with PSR-4",
+    "description": "Forked version that works with Wordpress MVC.",
     "keywords": ["cache"],
     "homepage": "http://www.phpfastcache.com",
     "license": "MIT",
     "authors": [
-            {
-                "name": "Khoa Bui",
-                "email": "khoaofgod@gmail.com",
-                "homepage": "http://www.phpfastcache.com",
-                "role": "Developer"
-            }
-        ],
+        {
+            "name": "Khoa Bui",
+            "email": "khoaofgod@gmail.com",
+            "homepage": "http://www.phpfastcache.com",
+            "role": "Developer"
+        },
+        {
+            "name": "10 Quality",
+            "email": "info@10quality.com",
+            "homepage": "http://www.10quality.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Alejandro Mostajo",
+            "email": "amostajo@gmail.com",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "php": ">=5.1.0",
         "10quality/wp-file": "0.9.*"
