@@ -73,9 +73,9 @@ abstract class BasePhpFastCache {
         if($object == null) {
             return null;
         }
-		
-		$value = isset( $object['value'] ) ? $object['value'] : null;
-		return isset( $option['all_keys'] ) && $option['all_keys'] ? $object : $value;
+        
+        $value = isset( $object['value'] ) ? $object['value'] : null;
+        return isset( $option['all_keys'] ) && $option['all_keys'] ? $object : $value;
     }
 
 
@@ -264,7 +264,7 @@ abstract class BasePhpFastCache {
     }
 
     public function __call($name, $args) {
-		return call_user_func_array( array( $this->instant, $name ), $args );
+        return call_user_func_array( array( $this->instant, $name ), $args );
     }
 
     /*
@@ -310,40 +310,27 @@ abstract class BasePhpFastCache {
         }
     }
 
-
-
     /*
      * Auto Create .htaccess to protect cache folder
      */
-
     protected function htaccessGen($path = '') {
         if($this->option('htaccess') == true) {
 
-            if(!@file_exists($path."/.htaccess")) {
+            if(!File::auth()->exists($path."/.htaccess")) {
                 //   echo "write me";
                 $html = "order deny, allow \r\n
 deny from all \r\n
 allow from 127.0.0.1";
-
-                $f = @fopen($path.'/.htaccess', 'w+');
-                if(!$f) {
-                    throw new Exception('Can\'t create .htaccess',97);
-                }
-                fwrite($f,$html);
-                fclose($f);
-
-
+                File::auth()->write($path.'/.htaccess', $html);
             } else {
                 //   echo "got me";
             }
         }
-
     }
 
     /*
     * Check phpModules or CGI
     */
-
     protected function isPHPModule() {
        return phpFastCache::isPHPModule();
     }
@@ -385,10 +372,6 @@ allow from 127.0.0.1";
             if($this->option['system']['drivers']['sqlite'] == true) {
                 $this->option['system']['driver'] = "sqlite";
             }
-
-
-
-
         }
 
         $example = new phpfastcache_example($this->config);
@@ -396,7 +379,6 @@ allow from 127.0.0.1";
         $this->option = $backup_option;
         return $this->option;
     }
-
 
     protected function isExistingDriver($class) {
         if(@file_exists(dirname(__FILE__)."/drivers/".$class.".php")) {
@@ -409,11 +391,7 @@ allow from 127.0.0.1";
         return false;
     }
 
-
-
     protected function __setChmodAuto() {
         return phpFastCache::__setChmodAuto($this->config);
     }
-
-
 }

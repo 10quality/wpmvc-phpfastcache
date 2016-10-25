@@ -153,7 +153,6 @@ class StreamConnection extends AbstractConnection
     public function disconnect()
     {
         if ($this->isConnected()) {
-            fclose($this->getResource());
             parent::disconnect();
         }
     }
@@ -207,7 +206,7 @@ class StreamConnection extends AbstractConnection
                 $bytesLeft = ($size += 2);
 
                 do {
-                    $chunk = fread($socket, min($bytesLeft, 4096));
+                    $chunk = File::auth()->read($socket);
 
                     if ($chunk === false || $chunk === '') {
                         $this->onConnectionError('Error while reading bytes from the server.');
