@@ -2,7 +2,7 @@
 
 This is a fork modification of the famous and powerful [phpfastcache](http://www.phpfastcache.com) from [khoaofgod](https://github.com/khoaofgod/phpfastcache).
 
-Modified version to work with Wordpress Standards and theme check.
+Modified version to work with WordPress Standards and theme check.
 
 ## Copyright
 

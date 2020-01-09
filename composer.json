@@ -1,7 +1,7 @@
 {
     "name": "10quality/wpmvc-phpfastcache",
     "type" : "library",
-    "description": "Forked version that works with Wordpress MVC.",
+    "description": "Forked version that works with WordPress MVC.",
     "keywords": ["cache"],
     "homepage": "http://www.phpfastcache.com",
     "license": "MIT",
