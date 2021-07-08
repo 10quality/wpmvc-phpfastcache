@@ -145,10 +145,10 @@ class phpFastCache
 
             if(!@file_exists($full_path) || !@is_writable($full_path)) {
                 if(!@file_exists($full_path)) {
-                    @mkdir($full_path,self::__setChmodAuto($config));
+                    @mkdir($full_path, self::__setChmodAuto($config), true);
                 }
                 if(!@is_writable($full_path)) {
-                    @chmod($full_path,self::__setChmodAuto($config));
+                    @chmod($full_path, self::__setChmodAuto($config));
                 }
                 if(!@file_exists($full_path) || !@is_writable($full_path)) {
 					throw new Exception('PLEASE CREATE OR CHMOD '.$full_path.' - 0777 OR ANY WRITABLE PERMISSION!',92);
