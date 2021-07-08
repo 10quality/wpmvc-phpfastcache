@@ -25,33 +25,33 @@ class phpFastCache
 		/*
 		 * Fall back when old driver is not support
 		 */
-		'fallback'  => 'files',
+		'fallback'      => 'files',
 
 		'securityKey'   =>  'auto',
 		'htaccess'      => true,
-		'path'      =>  '',
+		'path'          =>  '',
 
-		'memcache'        =>  array(
+		'memcache'      =>  array(
 			array('127.0.0.1',11211,1),
 			//  array('new.host.ip',11211,1),
 		),
 
 		'redis'         =>  array(
-			'host'  => '127.0.0.1',
-			'port'  =>  '',
+			'host'      => '127.0.0.1',
+			'port'      =>  '',
 			'password'  =>  '',
 			'database'  =>  '',
 			'timeout'   =>  ''
 		),
 
         'ssdb'         =>  array(
-			'host'  => '127.0.0.1',
-			'port'  =>  8888,
-			'password'  =>  '',
-			'timeout'   =>  ''
+			'host'     => '127.0.0.1',
+			'port'     =>  8888,
+			'password' =>  '',
+			'timeout'  =>  ''
 		),
 
-		'extensions'    =>  array(),
+		'extensions'   =>  array(),
 	);
 
     protected static $tmp = array();
@@ -71,13 +71,9 @@ class phpFastCache
         $this->instance = phpFastCache($storage,$config);
     }
 
-
-
-
     public function __call($name, $args) {
         return call_user_func_array(array($this->instance, $name), $args);
     }
-
 
     /*
      * Cores
@@ -105,14 +101,11 @@ class phpFastCache
             $driver = 'files';
         }
 
-
         return $driver;
-
     }
 
     public static function getPath($skip_create_path = false, $config) {
-        if ( !isset($config['path']) || $config['path'] == '' )
-        {
+        if ( !isset($config['path']) || $config['path'] == '' ) {
 
             // revision 618
             if(self::isPHPModule()) {
@@ -182,10 +175,10 @@ class phpFastCache
 
     protected static function getOS() {
         $os = array(
-            'os' => PHP_OS,
-            'php' => PHP_SAPI,
-            'system'    => php_uname(),
-            'unique'    => md5(php_uname().PHP_OS.PHP_SAPI)
+            'os'     => PHP_OS,
+            'php'    => PHP_SAPI,
+            'system' => php_uname(),
+            'unique' => md5(php_uname().PHP_OS.PHP_SAPI)
         );
         return $os;
     }
@@ -250,6 +243,5 @@ allow from 127.0.0.1';
     public static function required($class) {
         require_once(dirname(__FILE__).'/drivers/'.$class.'.php');
     }
-
 
 }
