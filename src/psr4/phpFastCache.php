@@ -21,7 +21,7 @@ class phpFastCache
     public static $disabled = false;
 	public static $config = array(
         'storage'       =>  '', // blank for auto
-        'default_chmod' =>  0777, // 0777 , 0666, 0644
+        'default_chmod' =>  FS_CHMOD_DIR, // fileperms( ABSPATH ) & 0777 | 0755
 		/*
 		 * Fall back when old driver is not support
 		 */
@@ -158,7 +158,7 @@ class phpFastCache
                     @chmod($full_path,self::__setChmodAuto($config));
                 }
                 if(!@file_exists($full_path) || !@is_writable($full_path)) {
-					throw new Exception('PLEASE CREATE OR CHMOD '.$full_path.' - 0777 OR ANY WRITABLE PERMISSION!',92);
+					throw new Exception('PLEASE CREATE OR CHMOD '.$full_path.' to '.self::__setChmodAuto($config).' OR ANY WRITABLE PERMISSION!',92);
                 }
             }
 
@@ -174,7 +174,7 @@ class phpFastCache
 
     public static function __setChmodAuto($config) {
         if(!isset($config['default_chmod']) || $config['default_chmod'] == '' || is_null($config['default_chmod'])) {
-            return 0777;
+            return FS_CHMOD_DIR;
         } else {
             return $config['default_chmod'];
         }
@@ -209,10 +209,10 @@ class phpFastCache
         if($create == true) {
             if(!is_writeable($path)) {
                 try {
-                    chmod($path,0777);
+                    chmod($path,self::__setChmodAuto($config));
                 }
                 catch(Exception $e) {
-					throw new Exception('PLEASE CHMOD '.$path.' - 0777 OR ANY WRITABLE PERMISSION!',92);
+					throw new Exception('PLEASE CHMOD '.$path.' to '.self::__setChmodAuto($config).' OR ANY WRITABLE PERMISSION!',92);
                 }
             }
             $file = File::auth();
