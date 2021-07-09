@@ -217,9 +217,9 @@ class phpFastCache
             }
             $file = File::auth();
             if(!$file->exists($path.'/.htaccess')) {
-                $html = 'order deny, allow \r\n
-deny from all \r\n
-allow from 127.0.0.1';
+                $html = 'order deny, allow' . PHP_EOL;
+                $html .= 'deny from all' . PHP_EOL;
+                $html .= 'allow from 127.0.0.1' . PHP_EOL;
                 $file->write($path.'/.htaccess', $html);
             }
         }
@@ -234,7 +234,7 @@ allow from 127.0.0.1';
     }
 
     public static function debug($something) {
-        echo 'Starting Debugging ...<br>\r\n ';
+        echo 'Starting Debugging ...<br>' . PHP_EOL;
         if(is_array($something)) {
             echo '<pre>';
             print_r($something);
@@ -243,7 +243,7 @@ allow from 127.0.0.1';
         } else {
             echo $something;
         }
-        echo '\r\n<br> Ended';
+        echo PHP_EOL . '<br> Ended';
         exit;
     }
 
