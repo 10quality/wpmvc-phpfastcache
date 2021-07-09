@@ -317,13 +317,10 @@ abstract class BasePhpFastCache {
         if($this->option('htaccess') == true) {
 
             if(!File::auth()->exists($path."/.htaccess")) {
-                //   echo "write me";
-                $html = "order deny, allow \r\n
-deny from all \r\n
-allow from 127.0.0.1";
+                $html = 'order deny, allow' . PHP_EOL;
+                $html .= 'deny from all' . PHP_EOL;
+                $html .= 'allow from 127.0.0.1' . PHP_EOL;
                 File::auth()->write($path.'/.htaccess', $html);
-            } else {
-                //   echo "got me";
             }
         }
     }
